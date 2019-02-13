@@ -26,7 +26,26 @@ for word in words:
     word.lower()
 
 words = list(filter(None, words))
-words = pd.DataFrame({"words" : words})
-grouped = words["words"].value_counts()
+dfwords = pd.DataFrame({"words" : words})
+grouped = dfwords["words"].value_counts()
 grouped = grouped.to_frame()
 grouped.rename(columns={"words":"count"})
+
+phrase = []
+num = len(words)-1
+for n in range(0,num):
+        phrase.append(words[n]+" "+words[n+1])
+dfphrase = pd.DataFrame({"phrase" : phrase})
+grouped = dfphrase["phrase"].value_counts()
+grouped = grouped.to_frame()
+grouped.rename(columns={"phrase":"count"})
+
+phrase3 = []
+num = len(words)-2
+for n in range(0,num):
+        phrase3.append(words[n]+" "+words[n+1]+" "+words[n+2])
+      
+dfphrase3 = pd.DataFrame({"phrase3" : phrase3})
+grouped = dfphrase3["phrase3"].value_counts()
+grouped = grouped.to_frame()
+grouped.rename(columns={"phrase3":"count"})
