@@ -26,19 +26,21 @@ for word in words:
     word.lower()
 
 words = list(filter(None, words))
-dfwords = pd.DataFrame({"words" : words})
-grouped = dfwords["words"].value_counts()
-grouped = grouped.to_frame()
-grouped.rename(columns={"words":"count"})
+dfphrase1 = pd.DataFrame({"words" : words})
+grouped1 = dfphrase1["words"].value_counts()
+grouped1 = grouped1.to_frame()
+grouped1.rename(columns={"words":"count"})
+#grouped1.to_csv('g1.csv')
 
 phrase = []
 num = len(words)-1
 for n in range(0,num):
         phrase.append(words[n]+" "+words[n+1])
-dfphrase = pd.DataFrame({"phrase" : phrase})
-grouped = dfphrase["phrase"].value_counts()
-grouped = grouped.to_frame()
-grouped.rename(columns={"phrase":"count"})
+dfphrase2 = pd.DataFrame({"phrase" : phrase})
+grouped2 = dfphrase2["phrase"].value_counts()
+grouped2 = grouped2.to_frame()
+grouped2.rename(columns={"phrase":"count"})
+#grouped2.to_csv('g2.csv')
 
 phrase3 = []
 num = len(words)-2
@@ -46,6 +48,21 @@ for n in range(0,num):
         phrase3.append(words[n]+" "+words[n+1]+" "+words[n+2])
       
 dfphrase3 = pd.DataFrame({"phrase3" : phrase3})
-grouped = dfphrase3["phrase3"].value_counts()
-grouped = grouped.to_frame()
-grouped.rename(columns={"phrase3":"count"})
+grouped3 = dfphrase3["phrase3"].value_counts()
+grouped3 = grouped3.to_frame()
+grouped3.rename(columns={"phrase3":"count"})
+#grouped3.to_csv('g3.csv')
+
+#dfphrase1.head()
+#dfphrase2.head()
+#dfphrase3.head()
+
+#grouped1.head()
+#grouped2.head()
+#grouped3.head()
+
+writer = pd.ExcelWriter('analysis/output.xlsx', engine = 'xlsxwriter')
+grouped1.to_excel(writer, sheet_name='grouped1')
+grouped2.to_excel(writer, sheet_name='grouped2')
+grouped3.to_excel(writer, sheet_name='grouped3')
+writer.save()
